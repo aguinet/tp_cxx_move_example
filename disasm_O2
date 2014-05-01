@@ -1,0 +1,35 @@
+main            proc near
+    push    r14
+    push    rbx
+    push    rax
+    mov     edi, offset s   ; "hello"
+    call    _strdup
+    mov     rbx, rax
+    xor     r14d, r14d
+    mov     edi, offset format ; "s1: %x\n"
+    xor     eax, eax
+    mov     rsi, rbx
+    call    _printf
+    test    rbx, rbx
+    jz      short loc_4006B3
+    mov     rdi, rbx        ; s
+    call    _strdup
+    mov     r14, rax
+
+loc_4006B3:
+    mov     edi, offset aScopyX ; "scopy: %x\n"
+    xor     eax, eax
+    mov     rsi, r14
+    call    _printf
+    mov     edi, offset aSmoveX ; "smove: %x\n"
+    xor     eax, eax
+    mov     rsi, rbx
+    call    _printf
+    mov     edi, offset format ; "s1: %x\n"
+    xor     esi, esi
+    xor     eax, eax
+    call    _printf
+    test    rbx, rbx
+    jz      short loc_4006EC
+    mov     rdi, rbx        ; ptr
+    call    _free
